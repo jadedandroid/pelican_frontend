@@ -7,6 +7,7 @@ class UpdateAuthor extends React.Component{
 
     state = {
         show: true,
+        author: this.props.foundAuthor,
         bio: this.props.foundAuthor.bio}
 
     showUpdate = (evt) => {
@@ -22,33 +23,34 @@ class UpdateAuthor extends React.Component{
     }
     handleSubmit = (evt) => {
         evt.preventDefault()
-        let {bio} = this.state.bio
         fetch(`http://localhost:3000/authors/${this.props.foundAuthor.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                bio,
-                id: this.props.foundAuthor.id
+                bio: this.state.bio
             })
         })
         .then(res => res.json())
         .then(updatedAuthor => {
-            console.log(updatedAuthor)
+            
             this.props.updateAuthor(updatedAuthor)
+            console.log(updatedAuthor)
         })
     }
 
    render(){
-       console.log(this.state)
+    //    this.state)
 
 
-    let {bio} = this.state.bio
+    let {bio} = this.state.bio;
+    let first_name = this.state.author.first_name
+    console.log(first_name)
     return(
         <>
 
-            <Button variant="warning" onClick={this.showUpdate}> Edit bio form 🛠 </Button> 
+            <Button variant="contained" color="secondary" className="editButton" onClick={this.showUpdate}> <h3>Edit {first_name}'s form</h3> 🛠 </Button> 
 
 
             <div>
@@ -57,13 +59,13 @@ class UpdateAuthor extends React.Component{
                  : 
              <form onSubmit={this.handleSubmit}>
              <h2>Edit {this.props.foundAuthor.name}!</h2>
-             <input type="text" id="bio"
+             <textarea  type="text" id="bio"
                     label="bio"
                     name="bio"
-                    value={bio}
+                    value={this.state.bio}
                     onChange={this.handleChange}
                     />
-                <input type="submit" value="update Pelican Author"/>
+                <input  type="submit" value="update Pelican Author"/>
                 </form>
 
                 }

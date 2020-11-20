@@ -62,7 +62,7 @@ render (){
             name="bio" 
             onChange={this.handleChange}
             value={this.state.bio}
-        />
+        /><br/>
         {/* <label htmlFor="email">Email contact:</label>
         <input type="text" id="email" 
             name="email" 
@@ -80,7 +80,7 @@ render (){
             name="rating" 
             onChange={this.handleChange}
             value={this.state.rating}
-        />
+        /><br/>
         <label htmlFor="img">Image of Author:</label>
         <input type="text" id="img" 
             name="img" 

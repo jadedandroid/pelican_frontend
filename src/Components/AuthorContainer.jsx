@@ -2,6 +2,13 @@ import React from 'react'
 // Any component that needs to get/set information from our global state needs the line below
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import Grid from "@material-ui/core/Grid"
+import {makeStyles, mergeClasses} from "@material-ui/styles"
+
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
 
 class AuthorContainer extends React.Component{
 
@@ -12,6 +19,7 @@ class AuthorContainer extends React.Component{
             </li>
         )
         })
+        
 
         return(
             <div className="Author-box">

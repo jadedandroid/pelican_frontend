@@ -5,17 +5,20 @@ import AuthorContainer from './Components/AuthorContainer'
 // import LoginForm from './Components/LoginForm'
 import ShowAuthor from './Components/ShowAuthor'
 import Header from "./Components/Header"
+import Footer from "./Components/Footer"
 import AddAuthorForm from "./Components/AddAuthorForm"
-import ShowGenres from "./Components/ShowGenres"
+import ShowGenre from "./Components/ShowGenres"
 import GenreContainer from "./Components/GenreContainer"
 import AddPublicationForm from "./PubComponents/AddPublicationForm"
 import UpdateAuthor from "./Components/UpdateAuthor"
 import PublicationContainer from "./PubComponents/PublicationContainer"
 import ShowPub from "./PubComponents/PublicationContainer"
-
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "./ui/Theme"
 import './App.css';
 import {connect} from 'react-redux'
 import Home from './Components/Home'
+import AddPubFromAuthor from "./Components/AddPubFromAuthor"
 
 
 class App extends React.Component{
@@ -32,7 +35,7 @@ class App extends React.Component{
       .then(res => res.json())
        .then((publicationsArray) => {
          this.props.setPubs(publicationsArray)
-         console.log(publicationsArray)
+        //  console.log(publicationsArray)
            
       })   
 
@@ -61,15 +64,44 @@ class App extends React.Component{
       }
     }
     updateAuthor = (routerProps) => {
-      console.log(routerProps)
+      
       let id = routerProps.match.params.id
-      let edit = routerProps.match.params.id.edit
       let num_id = parseInt(id)
       let foundAuthor = this.props.allAuthors.find(author => author.id === num_id)
       console.log(foundAuthor)
   
       if(foundAuthor){
         return <UpdateAuthor {...routerProps} foundAuthor={foundAuthor}/>
+      } else {
+        return <p>404 Page</p>
+      }
+    }
+
+    addPubFromAuthor = (routerProps) => {
+      console.log(routerProps)
+      let id = routerProps.match.params.id
+      let num_id = parseInt(id)
+      let foundAuthor = this.props.allAuthors.find(author => author.id === num_id)
+      console.log(foundAuthor)
+  
+      if(foundAuthor){
+        return <AddPubFromAuthor {...routerProps} foundAuthor={foundAuthor}/>
+      } else {
+        return <p>404 Page</p>
+      }
+    }
+
+    displayGenre = (routerProps) => {
+      
+      let id = routerProps.match.params.id
+      let num_id = parseInt(id)
+      let foundGenre = this.props.allGenres.find(genre => genre.id === num_id)
+      // .find(genre => genre.id === num_id)
+      // console.log(foundgenre)
+      // .allgenres
+  
+      if(foundGenre){
+        return <ShowGenre {...routerProps} foundGenre={foundGenre}/>
       } else {
         return <p>404 Page</p>
       }
@@ -100,7 +132,7 @@ class App extends React.Component{
         let theGenre = this.props.allGenres.find(genre => genre.id === num_id)
     
         if(theGenre){
-          return <ShowGenres {...routerProps} theGenre={theGenre}/>
+          return <ShowGenre {...routerProps} theGenre={theGenre}/>
         } else {
           return <p>404 Page</p>
         }
@@ -110,13 +142,12 @@ class App extends React.Component{
    
     render(){
       return(
-        <div>
+        <ThemeProvider theme={theme} >
           <Header/>
           <h1>Welcome to Pelican's Publication website</h1>
-          <Button variant="contained">Pelican button</Button>
           <Switch>
 
-          <Route path="/" exact>
+          <Route exact path="/" >
               <Home/>
             </Route>
             <Route path="/genres" exact>
@@ -138,18 +169,21 @@ class App extends React.Component{
             <Route path="/authors/new" exact>
               <AddAuthorForm/>
             </Route>
+            <Route path="/genres/:id" render={this.theGenres}>
+            </Route>
 
           <Route path="/authors/:id" render={this.displayAuthor} />  
-          
-            <Route path="/authors/:id"  render={this.updateAuthor}  />
-  
-            
 
+            <Route path="/authors/:id"  render={this.updateAuthor} />
+
+            <Route path="/authors/:id" render={this.addPubFromAuthor} />  
+            <Route path="/publications/:id" render={this.displayPub} />
             
-      
   
           </Switch>
-        </div>
+          <Footer/>
+
+        </ThemeProvider>
       )
     }
 
@@ -182,7 +216,7 @@ class App extends React.Component{
     };
 
     let mapStateToProps = (gState) => {
-     console.log(gState.publicationInfo.pubs) 
+     console.log(gState.authorsInfo.authors) 
      return {
         
         allAuthors: gState.authorsInfo.authors,

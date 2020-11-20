@@ -4,16 +4,24 @@ import {Button} from "@material-ui/core"
 
 
 
-class AddPublicationForm extends React.Component{
+class AddPubFromAuthor extends React.Component{
     
    state = {
+        show: true,
+        author: this.props.foundAuthor,
+        author_id: this.props.foundAuthor.id,
         title: "", 
         description: "", 
         rating: 0, 
         date_pub: "mm/yyyy", 
         img1: "", 
         genre_id: 1,
-        author_id: 1,
+        
+    }
+    addPub = (evt) => {
+        this.setState({
+            show: !this.state.show
+        })
     }
 
     
@@ -53,8 +61,6 @@ class AddPublicationForm extends React.Component{
 
     
     render() {
-        // const authors = this.props.authors.authors
-        // const genres = this.props.genres.genres
         let genreList = () => {
             if (this.props.genres){
                 return this.props.genres.genres.map(genre => {
@@ -62,16 +68,16 @@ class AddPublicationForm extends React.Component{
                 })
             }
         }
-        let authorList = () => {
-            if (this.props.authors){
-                return this.props.authors.authors.map(author => {
-                    return <option key={author.id} value={author.id}>{author.first_name} {author.last_name}</option>
-
-                })
-            }
-        }
 
         return(
+            
+            <>
+            <Button variant="contained" color="secondary" className="editButton" onClick={this.addPub}> <h3>Add Publication</h3> 🛠 </Button> 
+            
+            <div>
+            {this.state.show ?
+                null 
+                : 
             <form onSubmit={this.handleSubmit}>
                 <h1 className="pubForm"> Publication Registration Form</h1>
 
@@ -123,14 +129,6 @@ class AddPublicationForm extends React.Component{
                     onChange={this.handleChange}
                 /> */}
                 
-                {/* <label htmlFor="book">is pubication a book?:</label>
-                <input 
-                    type="checkbox" id="book" 
-                    name="book" 
-                    value={this.state.book} 
-                    onChange={this.handleChange}
-                /> */}
-
 
                 <label htmlFor="genre_id">Select genre_id</label>
                 
@@ -140,22 +138,20 @@ class AddPublicationForm extends React.Component{
                 {genreList()}
                 </select>
 
-                <label htmlFor="author_id">Select author_id</label>
-                
-                <select value={this.state.author_id}
-                name="author_id" id= "author_id" 
-                onChange={this.handleChange}>
-                {authorList()}
-                </select><br/>
-                <Button onClick={this.handleSubmit} variant="contained" color="#4fd9ff" 
+                <br/>
+                <Button onClick={this.handleSubmit} variant="contained" color="#000FFF" 
                 >Create a new Pelican publication </Button>
 
                 <input type="submit" value=""/>
 
                 </form>
-                
-        )
     }
+    </div>
+           </>     
+        )
+      
+    } 
+     
     }
     
 
@@ -179,6 +175,6 @@ let addPub = (singlePub) => {
 
 let mdtp = {addPub}
 
-export default connect(mapStateToProps, mdtp)(AddPublicationForm)
+export default connect(mapStateToProps, mdtp)(AddPubFromAuthor)
 
 

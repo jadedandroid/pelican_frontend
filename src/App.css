@@ -15,7 +15,7 @@
   }
 } */
 
-.App-header {
+/* .App-header {
   background-color: #1861e9;
   min-height: 15vh;
   display: flex;
@@ -24,7 +24,7 @@
   justify-content: left;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
@@ -40,7 +40,7 @@
 }
 body {
   background-color: #53daff; 
-  /* background-image: url("https://images.unsplash.com/photo-1577514409103-c48e0b24a41b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60");  */
+  background-image: url("https://images.unsplash.com/photo-1577514409103-c48e0b24a41b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"); 
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

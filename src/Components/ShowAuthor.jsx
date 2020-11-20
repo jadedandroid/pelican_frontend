@@ -1,6 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import UpdateAuthor from './UpdateAuthor';
+import Button from "@material-ui/core/Button"
+import AddPubFromAuthor from "./AddPubFromAuthor"
 // import AddAuthorForm from './AddAuthorForm'
 
 function ShowAuthor(props){
@@ -34,18 +36,11 @@ function ShowAuthor(props){
              <h2> {foundAuthor.bio}</h2>
              <h2> Country of residence {foundAuthor.residence}</h2>
              <UpdateAuthor foundAuthor = {foundAuthor}/>
-             <button
-                //  onClick={handleUpdateAuthor}
+             <AddPubFromAuthor foundAuthor = {foundAuthor}/>
+             <Button  variant="contained" color="secondary" onClick={handleDeleteAuthor}
                 >
-
-
-                 <h2>update Bio</h2>
-             </button>
-             <button
-                  onClick={handleDeleteAuthor}
-                >
-                  <h2>delete</h2>
-                </button>
+                  <h2>Delete {foundAuthor.first_name} from website</h2>
+                </Button>
 
         </div>
     )

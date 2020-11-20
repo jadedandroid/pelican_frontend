@@ -10,7 +10,7 @@ const Home = () => {
             <ReactPlayer
                 url="https://www.youtube.com/watch?v=CrNkb8PJbRI"/>
                 <br></br>
-                url
+                
             </div>
             )
     }

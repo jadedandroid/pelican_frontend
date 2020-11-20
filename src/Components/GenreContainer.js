@@ -2,17 +2,23 @@ import React from 'react'
 // Any component that needs to get/set information from our global state needs the line below
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import ShowGenres from "./ShowGenres"
 
 class GenreContainer extends React.Component{
 
     render(){
-        let arrayOfComponents = this.props.genres.map(genre => {
-            return (<li className="genrecard" key={genre.id}>
-                <Link to={`/genres/${genre.id}`}>  <h2>{genre.name}</h2><img src={genre.img} alt={genre.descriptio}></img> </Link>
-            </li>
+
+        console.log(this.props.genres)
+
+        let arrayOfComponents = this.props.genres.map(genre => {  
+        
+            return ( <>
+                <Link to={`/genres/${genre.id}`}>  <h2>{genre.name}</h2><img src={genre.img} alt={genre.description}></img> </Link>
+                {/* <ShowGenres className="genrecard" key={genre.id} genre={genre} />  */}
+                 </>
         )
         })
-
+           
         return(
             <div className="genre-box">
                 <h2>Published genre</h2>
